@@ -23,11 +23,20 @@ export default function EventCard(props: Event) {
         transition={{ layout: { duration: 0.5, type: "spring" } }}
         onClick={open}
         className="card"
-        style={{ borderRadius: "1rem" }}
+        style={{
+          borderRadius: "1rem",
+          boxShadow: "0px 10px 30px rgba(0,0,0, 0.5 ",
+        }}
       >
         <motion.h1 layout="position">{props.name}</motion.h1>
         {isOpen && (
-          <motion.div layout="position" className="expand pr-2 pl-2">
+          <motion.div
+            layout="position"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="expand pr-2 pl-2"
+          >
             <div>{props.date}</div>
             <div>{props.description}</div>
             <div>{props.tags}</div>

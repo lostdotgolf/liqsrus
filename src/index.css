@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@font-face {
+  font-family: PressStart;
+  src: url(./fonts/Press_Start_2P/PressStart2P-Regular.ttf);
+}
 
 * {
   margin: 0;
@@ -9,8 +10,16 @@
 }
 
 body {
-  background: linear-gradient(to right, blue, white);
+  background: linear-gradient(to right, #804bd8, #11e59d);
+  font-family: PressStart;
   color: white;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem;
+  font-size: 2rem;
 }
 
 .App {
@@ -29,4 +38,10 @@ body {
 
 .expand {
   width: 15rem;
+}
+
+footer {
+  margin: 2rem;
+  display: flex;
+  justify-content: space-between;
 }
