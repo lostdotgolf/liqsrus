@@ -27,7 +27,7 @@ export default function EventCard(props: Event) {
       >
         <motion.h1 layout="position">{props.name}</motion.h1>
         {isOpen && (
-          <motion.div layout="position" className="expand">
+          <motion.div layout="position" className="expand pr-2 pl-2">
             <div>{props.date}</div>
             <div>{props.description}</div>
             <div>{props.tags}</div>

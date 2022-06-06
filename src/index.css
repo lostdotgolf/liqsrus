@@ -9,7 +9,7 @@
 }
 
 body {
-  background: linear-gradient(to right, red, blue);
+  background: linear-gradient(to right, blue, white);
   color: white;
 }
 
@@ -28,5 +28,5 @@ body {
 }
 
 .expand {
-  width: 20rem;
+  width: 15rem;
 }
