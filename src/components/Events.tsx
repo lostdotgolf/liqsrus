@@ -2,7 +2,7 @@ import EventCard from "./EventCard";
 
 export default function Events() {
   return (
-    <main className="mb-auto">
+    <main className="mb-auto space-y-3">
       <EventCard
         name="permissionless"
         date="1/1/11"
