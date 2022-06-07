@@ -2,13 +2,13 @@ import EventCard from "./EventCard";
 
 export default function Events() {
   return (
-    <main className="space-y-9">
+    <main className="space-y-9 flex flex-col">
       <div className="">
         <EventCard
           name="Art Basel"
           to="12/3/21"
           from="12/6/21"
-          description="0"
+          description="a jolly time indeed"
           tags="irl"
         />
       </div>

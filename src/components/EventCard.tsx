@@ -43,7 +43,7 @@ export default function EventCard(props: Event) {
   }, []);
 
   return (
-    <div className="text-xl mr-2 ml-2 md:text-3xl md:w-1/2 md:h-1/2">
+    <div className="mr-1 ml-1 md:mr-2 md:ml-2 md:text-3xl items-stretch h-full">
       <motion.div
         layout="position"
         transition={{ layout: { duration: 0.5, type: "spring" } }}
@@ -54,7 +54,10 @@ export default function EventCard(props: Event) {
           boxShadow: "0px 10px 30px rgba(0,0,0, 0.5 ",
         }}
       >
-        <motion.h1 layout="position" className="text-center">
+        <motion.h1
+          layout="position"
+          className="text-center text-2xl text-purple-500"
+        >
           {props.name}
         </motion.h1>
         {isOpen && (
@@ -63,9 +66,9 @@ export default function EventCard(props: Event) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="flex flex-col m-3"
+            className="flex flex-col space-y-2 ml-1 mr-2 text-md"
           >
-            <div>
+            <div className="text-center text-green-500">
               {props.to}-{props.from}
             </div>
             <div>{props.description}</div>
@@ -94,12 +97,12 @@ export default function EventCard(props: Event) {
               options={{
                 elements: {
                   point: {
-                    radius: 1,
+                    radius: 2,
                   },
                 },
               }}
-              width={"100%"}
-              height={"100%"}
+              width={"50%"}
+              height={"50%"}
             />
           </motion.div>
         )}

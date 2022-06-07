@@ -6,14 +6,18 @@
   font-family: PressStart;
   src: url(./fonts/Press_Start_2P/PressStart2P-Regular.ttf);
 }
+/* 
+html {
+  background: linear-gradient(to right, blue, red);
+} */
 
 body {
-  background-color: #4998bc;
-  background: linear-gradient(to right, #804bd8, #11e59d);
+  background: linear-gradient(180deg, #804bd8, #11e59d);
   font-family: PressStart;
   color: white;
 }
 
 .extend {
   margin: 3rem;
+  max-height: 25%;
 }
