@@ -5,8 +5,8 @@ export default function Events() {
     <main className="grid-container">
       <div className="grid-item">
         <EventCard
-          name="Art Basel MiaBeach"
-          to="12/1/21"
+          name="Art Basel"
+          to="12/3/21"
           from="12/6/21"
           description="0"
           tags="irl"

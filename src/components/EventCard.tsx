@@ -37,7 +37,7 @@ const chartDays = [
 export default function EventCard(props: Event) {
   const [isOpen, setIsOpen] = useState(false);
   const [historicPrice, setHistoricPrice] = useState([]);
-  const [days, setDays] = useState(1);
+  const [days, setDays] = useState(2);
 
   const open = () => {
     setIsOpen(!isOpen);
@@ -115,6 +115,8 @@ export default function EventCard(props: Event) {
                   },
                 },
               }}
+              width={"100%"}
+              height={"100%"}
             />
           </motion.div>
         )}

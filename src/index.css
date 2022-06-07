@@ -55,18 +55,18 @@ body {
   min-width: 20vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
 }
 
 .card {
   background: white;
   color: black;
-  padding: 2rem 3rem;
+  padding: 1rem;
 }
 
-.expand {
+/* .expand {
   width: 15rem;
-}
+} */
 
 footer {
   margin: 2rem;
