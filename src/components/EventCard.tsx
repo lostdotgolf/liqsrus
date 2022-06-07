@@ -15,25 +15,6 @@ interface Event {
   tags: String;
 }
 
-const chartDays = [
-  {
-    label: "24 Hours",
-    value: 1,
-  },
-  {
-    label: "30 Days",
-    value: 30,
-  },
-  {
-    label: "3 Months",
-    value: 90,
-  },
-  {
-    label: "1 Year",
-    value: 365,
-  },
-];
-
 export default function EventCard(props: Event) {
   const [isOpen, setIsOpen] = useState(false);
   const [historicPrice, setHistoricPrice] = useState([]);
@@ -62,25 +43,27 @@ export default function EventCard(props: Event) {
   }, []);
 
   return (
-    <div className="App">
+    <div className="text-xl mr-2 ml-2 md:text-3xl md:w-1/2 md:h-1/2">
       <motion.div
         layout="position"
         transition={{ layout: { duration: 0.5, type: "spring" } }}
         onClick={open}
-        className="card"
+        className="bg-white text-black  mr-9 ml-9"
         style={{
           borderRadius: "1rem",
           boxShadow: "0px 10px 30px rgba(0,0,0, 0.5 ",
         }}
       >
-        <motion.h1 layout="position">{props.name}</motion.h1>
+        <motion.h1 layout="position" className="text-center">
+          {props.name}
+        </motion.h1>
         {isOpen && (
           <motion.div
             layout="position"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="expand pr-2 pl-2"
+            className="flex flex-col m-3"
           >
             <div>
               {props.to}-{props.from}

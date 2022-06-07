@@ -2,8 +2,8 @@ import EventCard from "./EventCard";
 
 export default function Events() {
   return (
-    <main className="grid-container">
-      <div className="grid-item">
+    <main className="space-y-9">
+      <div className="">
         <EventCard
           name="Art Basel"
           to="12/3/21"
@@ -12,7 +12,7 @@ export default function Events() {
           tags="irl"
         />
       </div>
-      <div className="grid-item">
+      <div className="">
         <EventCard
           name="NFT NYC"
           to="6/2/21"
@@ -21,7 +21,7 @@ export default function Events() {
           tags="irl"
         />
       </div>
-      <div className="grid-item">
+      <div className="">
         <EventCard
           name="dcentralcon"
           to="5/2/22"
@@ -30,7 +30,7 @@ export default function Events() {
           tags="irl"
         />
       </div>
-      <div className="grid-item">
+      <div className="">
         <EventCard
           name="art basel"
           to="4/31/22"
