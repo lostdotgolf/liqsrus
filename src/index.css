@@ -58,3 +58,7 @@ footer {
   display: flex;
   justify-content: space-between;
 }
+
+.chart {
+  margin-top: 50px;
+}

@@ -1,20 +1,65 @@
 import { motion } from "framer-motion";
+import axios from "axios";
+import { Line } from "react-chartjs-2";
 import { useState } from "react";
+import { Chart, registerables } from "chart.js";
+import { useEffect } from "react";
+
+Chart.register(...registerables);
 
 interface Event {
   name: String;
-  date: String;
+  to: string;
+  from: string;
   description: String;
   tags: String;
 }
 
+const chartDays = [
+  {
+    label: "24 Hours",
+    value: 1,
+  },
+  {
+    label: "30 Days",
+    value: 30,
+  },
+  {
+    label: "3 Months",
+    value: 90,
+  },
+  {
+    label: "1 Year",
+    value: 365,
+  },
+];
+
 export default function EventCard(props: Event) {
   const [isOpen, setIsOpen] = useState(false);
+  const [historicPrice, setHistoricPrice] = useState([]);
+  const [days, setDays] = useState(1);
 
   const open = () => {
     setIsOpen(!isOpen);
     console.log("open");
   };
+
+  const toDate = new Date(props.to);
+  const toUnixTimestamp = Math.floor(toDate.getTime() / 1000);
+
+  const fromDate = new Date(props.from);
+  const fromUnixTimestamp = Math.floor(fromDate.getTime() / 1000);
+
+  const fetchData = async () => {
+    const { data } = await axios.get(
+      `https://api.coingecko.com/api/v3/coins/solana/market_chart/range?vs_currency=usd&from=${toUnixTimestamp}&to=${fromUnixTimestamp}`
+    );
+    setHistoricPrice(data.prices);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="App">
@@ -37,9 +82,40 @@ export default function EventCard(props: Event) {
             transition={{ duration: 1 }}
             className="expand pr-2 pl-2"
           >
-            <div>{props.date}</div>
+            <div>
+              {props.to}-{props.from}
+            </div>
             <div>{props.description}</div>
-            <div>{props.tags}</div>
+            <div>where: {props.tags}</div>
+            <Line
+              data={{
+                labels: historicPrice.map((historicPrice) => {
+                  let date = new Date(historicPrice[0]);
+                  let time =
+                    date.getHours() > 12
+                      ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                      : `${date.getHours()}:${date.getMinutes()} AM`;
+                  return days === 1 ? time : date.toLocaleDateString();
+                }),
+
+                datasets: [
+                  {
+                    data: historicPrice.map(
+                      (historicPrice) => historicPrice[1]
+                    ),
+                    label: "sol price",
+                    borderColor: "#EEBC1D",
+                  },
+                ],
+              }}
+              options={{
+                elements: {
+                  point: {
+                    radius: 1,
+                  },
+                },
+              }}
+            />
           </motion.div>
         )}
       </motion.div>
