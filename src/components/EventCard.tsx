@@ -52,7 +52,7 @@ export default function EventCard(props: Event) {
 
   const fetchData = async () => {
     const { data } = await axios.get(
-      `https://api.coingecko.com/api/v3/coins/solana/market_chart/range?vs_currency=usd&from=${toUnixTimestamp}&to=${fromUnixTimestamp}`
+      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=${toUnixTimestamp}&to=${fromUnixTimestamp}`
     );
     setHistoricPrice(data.prices);
   };
@@ -103,8 +103,8 @@ export default function EventCard(props: Event) {
                     data: historicPrice.map(
                       (historicPrice) => historicPrice[1]
                     ),
-                    label: "sol price",
-                    borderColor: "#EEBC1D",
+                    label: "btc price",
+                    borderColor: "#7e4ed7",
                   },
                 ],
               }}
