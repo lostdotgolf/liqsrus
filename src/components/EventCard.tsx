@@ -43,12 +43,12 @@ export default function EventCard(props: Event) {
   }, []);
 
   return (
-    <div className="mr-1 ml-1 md:mr-2 md:ml-2 md:text-3xl items-stretch h-full">
+    <div className="">
       <motion.div
         layout="position"
         transition={{ layout: { duration: 0.5, type: "spring" } }}
         onClick={open}
-        className="bg-white text-black  mr-9 ml-9"
+        className="bg-white text-black  ml-1 mr-1 md:mr-9 md:ml-9"
         style={{
           borderRadius: "1rem",
           boxShadow: "0px 10px 30px rgba(0,0,0, 0.5 ",
@@ -66,7 +66,7 @@ export default function EventCard(props: Event) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="flex flex-col space-y-2 ml-1 mr-2 text-md"
+            className="h-min"
           >
             <div className="text-center text-green-500">
               {props.to}-{props.from}
@@ -101,8 +101,8 @@ export default function EventCard(props: Event) {
                   },
                 },
               }}
-              width={"50%"}
-              height={"50%"}
+              width={"75%"}
+              height={"25%"}
             />
           </motion.div>
         )}
