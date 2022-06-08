@@ -19,7 +19,15 @@ export default function EventCard(props: Event) {
   const [isOpen, setIsOpen] = useState(false);
   const [historicPrice, setHistoricPrice] = useState([]);
   const [days, setDays] = useState(2);
+  const [isDesktop, setDesktop] = useState(window.innerWidth > 650);
 
+  const updateMedia = () => {
+    setDesktop(window.innerWidth > 650);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
   const open = () => {
     setIsOpen(!isOpen);
     console.log("open");
@@ -73,37 +81,71 @@ export default function EventCard(props: Event) {
             </div>
             <div>{props.description}</div>
             <div>where: {props.tags}</div>
-            <Line
-              data={{
-                labels: historicPrice.map((historicPrice) => {
-                  let date = new Date(historicPrice[0]);
-                  let time =
-                    date.getHours() > 12
-                      ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                      : `${date.getHours()}:${date.getMinutes()} AM`;
-                  return days === 1 ? time : date.toLocaleDateString();
-                }),
+            {isDesktop ? (
+              <Line
+                data={{
+                  labels: historicPrice.map((historicPrice) => {
+                    let date = new Date(historicPrice[0]);
+                    let time =
+                      date.getHours() > 12
+                        ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                        : `${date.getHours()}:${date.getMinutes()} AM`;
+                    return days === 1 ? time : date.toLocaleDateString();
+                  }),
 
-                datasets: [
-                  {
-                    data: historicPrice.map(
-                      (historicPrice) => historicPrice[1]
-                    ),
-                    label: "btc price",
-                    borderColor: "#7e4ed7",
+                  datasets: [
+                    {
+                      data: historicPrice.map(
+                        (historicPrice) => historicPrice[1]
+                      ),
+                      label: "btc price",
+                      borderColor: "#7e4ed7",
+                    },
+                  ],
+                }}
+                options={{
+                  elements: {
+                    point: {
+                      radius: 2,
+                    },
                   },
-                ],
-              }}
-              options={{
-                elements: {
-                  point: {
-                    radius: 2,
+                }}
+                width={"75%"}
+                height={"25%"}
+              />
+            ) : (
+              <Line
+                data={{
+                  labels: historicPrice.map((historicPrice) => {
+                    let date = new Date(historicPrice[0]);
+                    let time =
+                      date.getHours() > 12
+                        ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                        : `${date.getHours()}:${date.getMinutes()} AM`;
+                    return days === 1 ? time : date.toLocaleDateString();
+                  }),
+
+                  datasets: [
+                    {
+                      data: historicPrice.map(
+                        (historicPrice) => historicPrice[1]
+                      ),
+                      label: "btc price",
+                      borderColor: "#7e4ed7",
+                    },
+                  ],
+                }}
+                options={{
+                  elements: {
+                    point: {
+                      radius: 2,
+                    },
                   },
-                },
-              }}
-              width={"75%"}
-              height={"25%"}
-            />
+                }}
+                width={"100%"}
+                height={"100%"}
+              />
+            )}
           </motion.div>
         )}
       </motion.div>
