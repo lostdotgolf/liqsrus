@@ -6,10 +6,10 @@
   font-family: PressStart;
   src: url(./fonts/Press_Start_2P/PressStart2P-Regular.ttf);
 }
-/* 
+
 html {
-  background: linear-gradient(to right, blue, red);
-} */
+  background-color: #804cd7;
+}
 
 body {
   background: linear-gradient(180deg, #804bd8, #11e59d);

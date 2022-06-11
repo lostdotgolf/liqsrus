@@ -35,6 +35,7 @@ export default function EventCard(props: Event) {
   const [isOpen, setIsOpen] = useState(false);
   const [historicBTCPrice, setHistoricBTCPrice] = useState([]);
   const [historicETHPrice, setHistoricETHPrice] = useState([]);
+  const [historicSOLPrice, setHistoricSOLPrice] = useState([]);
   const [days, setDays] = useState(0);
   const [isDesktop, setDesktop] = useState(window.innerWidth > 650);
 
@@ -71,9 +72,18 @@ export default function EventCard(props: Event) {
     console.log(data.prices);
   };
 
+  const fetchSOLData = async () => {
+    const { data } = await axios.get(
+      `https://api.coingecko.com/api/v3/coins/solana/market_chart/range?vs_currency=usd&from=${fromUnixTimestamp}&to=${toUnixTimestamp}`
+    );
+    setHistoricSOLPrice(data.prices);
+    console.log(data.prices);
+  };
+
   useEffect(() => {
     fetchBTCData();
     fetchETHData();
+    fetchSOLData();
   }, []);
 
   return (
@@ -126,7 +136,7 @@ export default function EventCard(props: Event) {
                           (historicBTCPrice) => historicBTCPrice[1]
                         ),
                         label: "btc price",
-                        borderColor: "#7e4ed7",
+                        borderColor: "#CB7E14",
                       },
                     ],
                   }}
@@ -171,6 +181,37 @@ export default function EventCard(props: Event) {
                   width={"75%"}
                   height={"25%"}
                 />
+                <Line
+                  data={{
+                    labels: historicSOLPrice.map((historicSOLPrice) => {
+                      let date = new Date(historicSOLPrice[0]);
+                      let time =
+                        date.getHours() > 12
+                          ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                          : `${date.getHours()}:${date.getMinutes()} AM`;
+                      return days === 1 ? time : date.toLocaleDateString();
+                    }),
+
+                    datasets: [
+                      {
+                        data: historicSOLPrice.map(
+                          (historicSOLPrice) => historicSOLPrice[1]
+                        ),
+                        label: "sol price",
+                        borderColor: "#7e4ed7",
+                      },
+                    ],
+                  }}
+                  options={{
+                    elements: {
+                      point: {
+                        radius: 2,
+                      },
+                    },
+                  }}
+                  width={"75%"}
+                  height={"25%"}
+                />
               </div>
             ) : (
               <div>
@@ -191,7 +232,7 @@ export default function EventCard(props: Event) {
                           (historicBTCPrice) => historicBTCPrice[1]
                         ),
                         label: "btc price",
-                        borderColor: "#7e4ed7",
+                        borderColor: "#CB7E14",
                       },
                     ],
                   }}
@@ -223,6 +264,37 @@ export default function EventCard(props: Event) {
                         ),
                         label: "eth price",
                         borderColor: "#14cb8b",
+                      },
+                    ],
+                  }}
+                  options={{
+                    elements: {
+                      point: {
+                        radius: 2,
+                      },
+                    },
+                  }}
+                  width={"100%"}
+                  height={"100%"}
+                />
+                <Line
+                  data={{
+                    labels: historicSOLPrice.map((historicSOLPrice) => {
+                      let date = new Date(historicSOLPrice[1]);
+                      let time =
+                        date.getHours() > 12
+                          ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                          : `${date.getHours()}:${date.getMinutes()} AM`;
+                      return days === 1 ? time : date.toLocaleDateString();
+                    }),
+
+                    datasets: [
+                      {
+                        data: historicSOLPrice.map(
+                          (historicSOLPrice) => historicSOLPrice[1]
+                        ),
+                        label: "sol price",
+                        borderColor: "##7e4ed7",
                       },
                     ],
                   }}
