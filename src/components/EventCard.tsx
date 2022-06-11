@@ -36,6 +36,7 @@ export default function EventCard(props: Event) {
   const [historicBTCPrice, setHistoricBTCPrice] = useState([]);
   const [historicETHPrice, setHistoricETHPrice] = useState([]);
   const [historicSOLPrice, setHistoricSOLPrice] = useState([]);
+  const [btcDifference, setBTCDifference] = useState(0);
   const [days, setDays] = useState(0);
   const [isDesktop, setDesktop] = useState(window.innerWidth > 650);
 
@@ -62,6 +63,10 @@ export default function EventCard(props: Event) {
       `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=${fromUnixTimestamp}&to=${toUnixTimestamp}`
     );
     setHistoricBTCPrice(data.prices);
+
+    const difference = data.prices[71][1] - data.prices[0][1];
+    setBTCDifference(difference);
+    console.log(difference);
   };
 
   const fetchETHData = async () => {
@@ -79,6 +84,8 @@ export default function EventCard(props: Event) {
     setHistoricSOLPrice(data.prices);
     console.log(data.prices);
   };
+
+  console.log(historicBTCPrice, historicETHPrice, historicSOLPrice);
 
   useEffect(() => {
     fetchBTCData();
