@@ -218,7 +218,7 @@ export default function EventCard(props: Event) {
                 <Line
                   data={{
                     labels: historicBTCPrice.map((historicBTCPrice) => {
-                      let date = new Date(historicBTCPrice[1]);
+                      let date = new Date(historicBTCPrice[0]);
                       let time =
                         date.getHours() > 12
                           ? `${date.getHours() - 12}:${date.getMinutes()} PM`
@@ -229,7 +229,7 @@ export default function EventCard(props: Event) {
                     datasets: [
                       {
                         data: historicBTCPrice.map(
-                          (historicBTCPrice) => historicBTCPrice[1]
+                          (historicBTCPrice) => historicBTCPrice[0]
                         ),
                         label: "btc price",
                         borderColor: "#CB7E14",
@@ -249,7 +249,7 @@ export default function EventCard(props: Event) {
                 <Line
                   data={{
                     labels: historicETHPrice.map((historicETHPrice) => {
-                      let date = new Date(historicETHPrice[1]);
+                      let date = new Date(historicETHPrice[0]);
                       let time =
                         date.getHours() > 12
                           ? `${date.getHours() - 12}:${date.getMinutes()} PM`
@@ -260,7 +260,7 @@ export default function EventCard(props: Event) {
                     datasets: [
                       {
                         data: historicETHPrice.map(
-                          (historicETHPrice) => historicETHPrice[1]
+                          (historicETHPrice) => historicETHPrice[0]
                         ),
                         label: "eth price",
                         borderColor: "#14cb8b",
@@ -280,7 +280,7 @@ export default function EventCard(props: Event) {
                 <Line
                   data={{
                     labels: historicSOLPrice.map((historicSOLPrice) => {
-                      let date = new Date(historicSOLPrice[1]);
+                      let date = new Date(historicSOLPrice[0]);
                       let time =
                         date.getHours() > 12
                           ? `${date.getHours() - 12}:${date.getMinutes()} PM`
