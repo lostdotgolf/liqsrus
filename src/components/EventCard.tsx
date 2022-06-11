@@ -15,10 +15,27 @@ interface Event {
   tags: String;
 }
 
+const options = {
+  //   scales: {
+  //     y: {
+  //       min: 40000,
+  //       max: 58000,
+  //       stepSize: 5,
+  //     },
+  //     x: { min: 5, max: 50 },
+  //   },
+  elements: {
+    point: {
+      radius: 2,
+    },
+  },
+};
+
 export default function EventCard(props: Event) {
   const [isOpen, setIsOpen] = useState(false);
-  const [historicPrice, setHistoricPrice] = useState([]);
-  const [days, setDays] = useState(2);
+  const [historicBTCPrice, setHistoricBTCPrice] = useState([]);
+  const [historicETHPrice, setHistoricETHPrice] = useState([]);
+  const [days, setDays] = useState(0);
   const [isDesktop, setDesktop] = useState(window.innerWidth > 650);
 
   const updateMedia = () => {
@@ -33,21 +50,30 @@ export default function EventCard(props: Event) {
     console.log("open");
   };
 
-  const toDate = new Date(props.to);
-  const toUnixTimestamp = Math.floor(toDate.getTime() / 1000);
-
   const fromDate = new Date(props.from);
-  const fromUnixTimestamp = Math.floor(fromDate.getTime() / 1000);
+  const toUnixTimestamp = Math.floor(fromDate.getTime() / 1000);
 
-  const fetchData = async () => {
+  const toDate = new Date(props.to);
+  const fromUnixTimestamp = Math.floor(toDate.getTime() / 1000);
+
+  const fetchBTCData = async () => {
     const { data } = await axios.get(
-      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=${toUnixTimestamp}&to=${fromUnixTimestamp}`
+      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=${fromUnixTimestamp}&to=${toUnixTimestamp}`
     );
-    setHistoricPrice(data.prices);
+    setHistoricBTCPrice(data.prices);
+  };
+
+  const fetchETHData = async () => {
+    const { data } = await axios.get(
+      `https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=${fromUnixTimestamp}&to=${toUnixTimestamp}`
+    );
+    setHistoricETHPrice(data.prices);
+    console.log(data.prices);
   };
 
   useEffect(() => {
-    fetchData();
+    fetchBTCData();
+    fetchETHData();
   }, []);
 
   return (
@@ -82,42 +108,75 @@ export default function EventCard(props: Event) {
             <div>{props.description}</div>
             <div>where: {props.tags}</div>
             {isDesktop ? (
-              <Line
-                data={{
-                  labels: historicPrice.map((historicPrice) => {
-                    let date = new Date(historicPrice[0]);
-                    let time =
-                      date.getHours() > 12
-                        ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                        : `${date.getHours()}:${date.getMinutes()} AM`;
-                    return days === 1 ? time : date.toLocaleDateString();
-                  }),
+              <div>
+                <Line
+                  data={{
+                    labels: historicBTCPrice.map((historicBTCPrice) => {
+                      let date = new Date(historicBTCPrice[0]);
+                      let time =
+                        date.getHours() > 12
+                          ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                          : `${date.getHours()}:${date.getMinutes()} AM`;
+                      return days === 1 ? time : date.toLocaleDateString();
+                    }),
 
-                  datasets: [
-                    {
-                      data: historicPrice.map(
-                        (historicPrice) => historicPrice[1]
-                      ),
-                      label: "btc price",
-                      borderColor: "#7e4ed7",
+                    datasets: [
+                      {
+                        data: historicBTCPrice.map(
+                          (historicBTCPrice) => historicBTCPrice[1]
+                        ),
+                        label: "btc price",
+                        borderColor: "#7e4ed7",
+                      },
+                    ],
+                  }}
+                  options={{
+                    elements: {
+                      point: {
+                        radius: 2,
+                      },
                     },
-                  ],
-                }}
-                options={{
-                  elements: {
-                    point: {
-                      radius: 2,
+                  }}
+                  width={"75%"}
+                  height={"25%"}
+                />
+                <Line
+                  data={{
+                    labels: historicETHPrice.map((historicETHPrice) => {
+                      let date = new Date(historicETHPrice[0]);
+                      let time =
+                        date.getHours() > 12
+                          ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                          : `${date.getHours()}:${date.getMinutes()} AM`;
+                      return days === 1 ? time : date.toLocaleDateString();
+                    }),
+
+                    datasets: [
+                      {
+                        data: historicETHPrice.map(
+                          (historicETHPrice) => historicETHPrice[1]
+                        ),
+                        label: "eth price",
+                        borderColor: "#14cb8b",
+                      },
+                    ],
+                  }}
+                  options={{
+                    elements: {
+                      point: {
+                        radius: 2,
+                      },
                     },
-                  },
-                }}
-                width={"75%"}
-                height={"25%"}
-              />
+                  }}
+                  width={"75%"}
+                  height={"25%"}
+                />
+              </div>
             ) : (
               <Line
                 data={{
-                  labels: historicPrice.map((historicPrice) => {
-                    let date = new Date(historicPrice[0]);
+                  labels: historicBTCPrice.map((historicBTCPrice) => {
+                    let date = new Date(historicBTCPrice[1]);
                     let time =
                       date.getHours() > 12
                         ? `${date.getHours() - 12}:${date.getMinutes()} PM`
@@ -127,8 +186,8 @@ export default function EventCard(props: Event) {
 
                   datasets: [
                     {
-                      data: historicPrice.map(
-                        (historicPrice) => historicPrice[1]
+                      data: historicBTCPrice.map(
+                        (historicBTCPrice) => historicBTCPrice[1]
                       ),
                       label: "btc price",
                       borderColor: "#7e4ed7",
