@@ -173,37 +173,70 @@ export default function EventCard(props: Event) {
                 />
               </div>
             ) : (
-              <Line
-                data={{
-                  labels: historicBTCPrice.map((historicBTCPrice) => {
-                    let date = new Date(historicBTCPrice[1]);
-                    let time =
-                      date.getHours() > 12
-                        ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                        : `${date.getHours()}:${date.getMinutes()} AM`;
-                    return days === 1 ? time : date.toLocaleDateString();
-                  }),
+              <div>
+                <Line
+                  data={{
+                    labels: historicBTCPrice.map((historicBTCPrice) => {
+                      let date = new Date(historicBTCPrice[1]);
+                      let time =
+                        date.getHours() > 12
+                          ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                          : `${date.getHours()}:${date.getMinutes()} AM`;
+                      return days === 1 ? time : date.toLocaleDateString();
+                    }),
 
-                  datasets: [
-                    {
-                      data: historicBTCPrice.map(
-                        (historicBTCPrice) => historicBTCPrice[1]
-                      ),
-                      label: "btc price",
-                      borderColor: "#7e4ed7",
+                    datasets: [
+                      {
+                        data: historicBTCPrice.map(
+                          (historicBTCPrice) => historicBTCPrice[1]
+                        ),
+                        label: "btc price",
+                        borderColor: "#7e4ed7",
+                      },
+                    ],
+                  }}
+                  options={{
+                    elements: {
+                      point: {
+                        radius: 2,
+                      },
                     },
-                  ],
-                }}
-                options={{
-                  elements: {
-                    point: {
-                      radius: 2,
+                  }}
+                  width={"100%"}
+                  height={"100%"}
+                />
+                <Line
+                  data={{
+                    labels: historicETHPrice.map((historicETHPrice) => {
+                      let date = new Date(historicETHPrice[1]);
+                      let time =
+                        date.getHours() > 12
+                          ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                          : `${date.getHours()}:${date.getMinutes()} AM`;
+                      return days === 1 ? time : date.toLocaleDateString();
+                    }),
+
+                    datasets: [
+                      {
+                        data: historicETHPrice.map(
+                          (historicETHPrice) => historicETHPrice[1]
+                        ),
+                        label: "eth price",
+                        borderColor: "#14cb8b",
+                      },
+                    ],
+                  }}
+                  options={{
+                    elements: {
+                      point: {
+                        radius: 2,
+                      },
                     },
-                  },
-                }}
-                width={"100%"}
-                height={"100%"}
-              />
+                  }}
+                  width={"100%"}
+                  height={"100%"}
+                />
+              </div>
             )}
           </motion.div>
         )}
