@@ -229,7 +229,7 @@ export default function EventCard(props: Event) {
                     datasets: [
                       {
                         data: historicBTCPrice.map(
-                          (historicBTCPrice) => historicBTCPrice[0]
+                          (historicBTCPrice) => historicBTCPrice[1]
                         ),
                         label: "btc price",
                         borderColor: "#CB7E14",
@@ -260,7 +260,7 @@ export default function EventCard(props: Event) {
                     datasets: [
                       {
                         data: historicETHPrice.map(
-                          (historicETHPrice) => historicETHPrice[0]
+                          (historicETHPrice) => historicETHPrice[1]
                         ),
                         label: "eth price",
                         borderColor: "#14cb8b",
