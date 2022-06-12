@@ -122,8 +122,8 @@ export default function EventCard(props: Event) {
             <div className="text-center text-green-500">
               {props.to}-{props.from}
             </div>
-            <div>{props.description}</div>
-            <div>where: {props.tags}</div>
+            <div className="text-center">{props.description}</div>
+            <div className="text-center mb-9">where: {props.tags}</div>
             {isDesktop ? (
               <div>
                 <Line
@@ -154,7 +154,7 @@ export default function EventCard(props: Event) {
                       },
                     },
                   }}
-                  width={"75%"}
+                  width={"100%"}
                   height={"25%"}
                 />
                 <Line
@@ -301,7 +301,7 @@ export default function EventCard(props: Event) {
                           (historicSOLPrice) => historicSOLPrice[1]
                         ),
                         label: "sol price",
-                        borderColor: "##7e4ed7",
+                        borderColor: "#7e4ed7",
                       },
                     ],
                   }}
