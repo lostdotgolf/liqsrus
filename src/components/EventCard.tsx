@@ -64,17 +64,16 @@ export default function EventCard(props: Event) {
     );
     setHistoricBTCPrice(data.prices);
 
-    const difference = data.prices[71][1] - data.prices[0][1];
+    const difference = data.prices[0][1] - data.prices[71][1];
     setBTCDifference(difference);
-    console.log(difference);
   };
+  console.log(btcDifference);
 
   const fetchETHData = async () => {
     const { data } = await axios.get(
       `https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=${fromUnixTimestamp}&to=${toUnixTimestamp}`
     );
     setHistoricETHPrice(data.prices);
-    console.log(data.prices);
   };
 
   const fetchSOLData = async () => {
@@ -82,10 +81,7 @@ export default function EventCard(props: Event) {
       `https://api.coingecko.com/api/v3/coins/solana/market_chart/range?vs_currency=usd&from=${fromUnixTimestamp}&to=${toUnixTimestamp}`
     );
     setHistoricSOLPrice(data.prices);
-    console.log(data.prices);
   };
-
-  console.log(historicBTCPrice, historicETHPrice, historicSOLPrice);
 
   useEffect(() => {
     fetchBTCData();
